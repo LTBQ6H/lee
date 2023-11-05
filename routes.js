@@ -65,10 +65,15 @@ const appVue = new Vue({
                 for (let i = 0; i < cart_infor.list.length; i++) {
                     if (this.paths[1] == cart_infor.list[i].id) {
                         this.inCart = true
-                        document.querySelector('meta[name="description"]').setAttribute("content", cart_infor.list[i].description);
                         break
                     }
                 }
+                for (let i = 0; i < this.productList[i].list.length; i++) {
+                    if (this.paths[1] == this.productList[i].list[i].id) {
+                        document.querySelector('meta[name="description"]').setAttribute("content",  this.productList[i].description);
+                  break
+                  }
+                  }      
             }
 
             document.getElementById("badge").innerHTML = cart_infor['list'].length
