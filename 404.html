@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="keywords" content="Bán hàng, Decor, Văn phòng phẩm, Sách vở, Thương mại" />
+    <meta name="description" content="Nền tảng thương mại điện tử chuyên bán đa dạng các loại sản phẩm Decor, Văn phòng phẩm, Sách vở, ..." />
+    <meta property="og:title" content="SHOPSMON" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/img/logo.png" />
+
+    <title> SHOPSMON </title>
+    <!-- favicon -->
+    <link rel="icon" href="/img/icon.png" type="image/gif" sizes="16x16">
+    <!-- fontawesome -->
+    <script src="https://kit.fontawesome.com/4a3b1f73a2.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,900;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/css/contentDetails.css">
+    <link rel="stylesheet" href="/css/cart.css">
+    <link rel="stylesheet" href="/css/orderPlaced.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <script src="/js/convert.js"></script>
+</head>
+<body>  
+    <!-- HEADER -->
+    <div id="1">
+        <header>
+            <section>
+                <!-- MAIN CONTAINER -->
+                <div id="container">
+                    <!-- SHOP NAME -->
+                    <div id="shopName"><a href="/index.html"> <b style="color: #1ac0da;">SHOP</b>SMON </a></div>
+                        <!-- COLLCETIONS ON WEBSITE -->
+                        <div id="collection">
+                            <div id="clothing"><a href="/index.html#containerClothingTitle"> DECOR </a></div>
+                            <div id="accessories"><a href="/index.html#containerAccessoriesTitle"> VĂN PHÒNG PHẨM </a></div>
+                        </div>
+                        <!-- SEARCH SECTION -->
+                        <div id="search">
+                            <i class="fas fa-search search"></i>
+                            <input type="text" id="input" name="searchBox" placeholder="Tìm kiếm các Sản phẩm">
+                        </div>
+                        <!-- USER SECTION (CART AND USER ICON) -->
+                        <div id="user">
+                            <a href="/cart"> <i class="fas fa-shopping-cart addedToCart"><div id="badge"> 0 </div></i></a>
+                            <!-- <a href="#"> <i class="fas fa-user-circle userIcon"></i> </a> -->
+                        </div>
+                </div>
+
+            </section>
+        </header>
+    </div>
+
+    <div id="root">
+
+        <!-- OREDER PLACED -->
+        <div id="orderContainer" v-if="paths[0] === 'orderPlaced'">
+            <div id="check"><i class="fas fa-check-circle"></i></div>
+            <div id="aboutCheck">
+                <h1> Đơn hàng được đặt thành công! </h1>
+                <p> Vui lòng kiểm tra email và liên hệ với shop để tiến hành thanh toán </p>
+            </div>
+        </div>
+
+        <div id="orderContainer" v-else-if="paths[0] === 'error'">
+            <div id="check"><i class="fas fa-times-circle"></i></div>
+            <div id="aboutCheck">
+                <h1> Có lỗi xảy ra! </h1>
+                <p> Vui lòng kiểm tra lại các giao dịch </p>
+            </div>
+        </div>
+
+        <div id="containerProduct" v-else-if="paths[0] === 'product'">
+            <!-- JS rendered code -->
+            <div id="containerD">
+                <div id="imageSection">
+                    <img id="imgDetails" :src="productList[paths[1] - 1].photos[id_preview]"></div>
+                    <div id="productDetails">
+                        <h1>{{ productList[paths[1] - 1].name }}</h1>
+                        <h4>{{ productList[paths[1] - 1].brand }}</h4>
+                        <div id="details">
+                            <h3>VNĐ {{ productList[paths[1] - 1].price }}</h3>
+                            <h3>Mô Tả</h3>
+                            <p>{{ productList[paths[1] - 1].description }}</p>
+                        </div>
+                        <div id="productPreview">
+                            <h3>Xem Trước</h3>
+                            <img id="previewImg" v-for="src, i in productList[paths[1] - 1].photos" :src="src" @click="changePreview(i)">
+                        </div>
+                        <button id="button" @click="addToCart(paths[1])" v-if="!inCart">Thêm vào Giỏ hàng</button>
+                        <button id="button" v-if="inCart" @click="redirect('/cart')">Đã thêm vào Giỏ hàng</button>
+                    </div>
+                </div>
+        </div>
+
+        <div id="cartMainContainer" v-else-if="paths[0] === 'cart'">
+            <h1> Đơn Hàng </h1>
+            <h3 id="totalItem"> Tổng Sản Phẩm: {{ cart_infor.list.length }} </h3>
+    
+            <div id="cartContainer">
+                <!-- JS rendered code -->
+                <div id="boxContainer">
+                    <div id="box" v-for="item in cart_infor.list">
+                        <img :src="productList[item.id - 1].preview" @click="redirect('/product/' + item.id)">
+                        <h3 style="display: flex;"> 
+                            <p @click="redirect('/product/' + item.id)"> {{ productList[item.id - 1].name + ' x '}} </p>
+                            <input type="number" v-model="item.counter" @change="saveCart()"/> 
+                        </h3>
+                        <h4>Chi Phí: VNĐ {{ productList[item.id - 1].price }}</h4>
+                    </div>
+                </div>
+
+                <div id="totalContainer" v-if="cart_infor.list.length > 0">
+                    <div id="total">
+                        <h2>Thông Tin Đơn Hàng</h2>
+                        <form action="javascript:void(0);">
+                        <div>
+                            <input type="text" name="name" placeholder="Họ và Tên" required v-model="user.name">
+                        </div>
+                        <div>
+                            <input type="email" name="email" placeholder="Email" required v-model="user.email">
+                        </div>
+                        <div>
+                            <input type="number" name="phone" placeholder="Số điện thoại" required v-model="user.phone">
+                        </div>
+                        <div>
+                            <input type="text" name="address" placeholder="Địa chỉ" required v-model="user.address">
+                        </div>
+                        <h4>Phí Giao Hàng: VNĐ 25000</h4>
+                        <h4>Tổng Chi Phí: VNĐ {{ totalAmount + 25000 }}</h4>
+                        <button id="button" type="submit" @click="placeOrder()">
+                            <a>Đặt Hàng</a>
+                        </button>
+                        <button id="button" type="submit" @click="deleteCart()">
+                            <a>Xóa giỏ hàng</a>
+                        </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="cartMainContainer" v-else-if="paths[0] === 'order'">
+            <h1> Đơn Hàng {{ order.code }}</h1>
+            <h3 id="totalItem"> Tổng Sản Phẩm: {{ order.list.length }} </h3>
+    
+            <div id="cartContainer">
+                <!-- JS rendered code -->
+                <div id="boxContainer">
+                    <div id="box" v-for="item in order.list">
+                        <img :src="productList[item.id - 1].preview">
+                        <h3>{{ productList[item.id - 1].name + ' x ' + item.counter }}</h3>
+                        <h4>Chi Phí: VNĐ {{ productList[item.id - 1].price }}</h4>
+                    </div>
+                </div>
+
+                <div id="totalContainer" v-if="order.list.length > 0">
+                    <div id="total">
+                        <h2>Thông Tin Đơn Hàng</h2>
+                        <form action="javascript:void(0);">
+                        <div>
+                            <input type="text" name="name" placeholder="Họ và Tên" required v-model="order.code" disabled>
+                        </div>
+                        <div>
+                            <input type="text" name="name" placeholder="Họ và Tên" required v-model="order.user.name" disabled>
+                        </div>
+                        <div>
+                            <input type="email" name="email" placeholder="Email" required v-model="order.user.email" disabled>
+                        </div>
+                        <div>
+                            <input type="number" name="phone" placeholder="Số điện thoại" required v-model="order.user.phone" disabled>
+                        </div>
+                        <div>
+                            <input type="text" name="address" placeholder="Địa chỉ" required v-model="order.user.address" disabled>
+                        </div>
+                        <h4 id="toth4">Phí Giao Hàng: VNĐ 25000</h4>
+                        <h4 id="toth4">Tổng Chi Phí: VNĐ {{ order.totalAmount + 25000 }}</h4>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="orderContainer" v-else>
+            <div id="check"><i class="fas fa-check-circle"></i></div>
+            <div id="aboutCheck">
+                <h1> Tải dữ liệu thành công! </h1>
+                <p> Vui lòng chờ </p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <div id="4">
+        <footer>
+            <section>    
+                <div id="containerFooter">
+                    
+                    <div id="webFooter">
+                        <h3> Cửa hàng Online </h3>
+                        <p> Decor </p>
+                        <p> Văn Phòng Phẩm </p>
+                    </div>
+    
+                    <div id="webFooter">
+                        <h3> Cửa hàng Online </h3>
+                        <p> Sách Truyện </p>
+                        <p> Mặt Hàng Khác </p>
+                    </div>
+    
+                    <div id="webFooter">
+                        <h3> Địa Chỉ </h3>
+                        <p> 181 Xuân Thủy </p>
+                        <p> Cầu Giấy </p>
+                        <p> Hà Nội </p>
+                        <p> Việt Nam </p>
+                    </div>
+    
+                    <div id="webFooter">
+                        <h3> Liên Hệ </h3>
+                        <p> Phone: 0377669361 </p>
+                        <p> cuahangshopsmon@gmail.com </p>
+                        <p> FB: fb.com/cuahangshopsmon </p>
+                    </div>
+                </div>
+                <div id="credit"><a href="https://www.linkedin.com/in/vi%E1%BB%87t-anh-%C4%91%C3%A0o-4a9554235/"> © Shopsmon </a></div>
+            </section>
+        </footer>
+    </div>
+</body>
+
+    <!-- Messenger Plugin chat Code -->
+    <div id="fb-root"></div>
+
+    <!-- Your Plugin chat code -->
+    <div id="fb-customer-chat" class="fb-customerchat">
+    </div>
+
+    <script>
+      var chatbox = document.getElementById('fb-customer-chat');
+      chatbox.setAttribute("page_id", "2123326097908742");
+      chatbox.setAttribute("attribution", "biz_inbox");
+    </script>
+
+    <!-- Your SDK code -->
+    <script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          xfbml            : true,
+          version          : 'v17.0'
+        });
+      };
+
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <script src="/js/vue.global.js"></script>
+    <script src="/routes.js"></script>
+</html>
