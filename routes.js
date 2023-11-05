@@ -65,6 +65,7 @@ const appVue = new Vue({
                 for (let i = 0; i < cart_infor.list.length; i++) {
                     if (this.paths[1] == cart_infor.list[i].id) {
                         this.inCart = true
+                        document.querySelector('meta[name="description"]').setAttribute("content", cart_infor.list[i].description);
                         break
                     }
                 }
