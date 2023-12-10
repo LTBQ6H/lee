@@ -1,8 +1,8 @@
 const appVue = new Vue({
     el: '#root',
     data: {
-        url1: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQuNF3cF8vlpxKSrDplDHAQCOUje6OIQSon9QCnWdvnDndepT8iozlTpzS1EiIeXT2qtkHu5C22atla/pubhtml",
-        url2: "https://script.google.com/macros/s/AKfycbxGPYP5NJJVPeg6O0yYX0sOv7Evl8noBUjlyO0x_7Hi7ZGnH0vyAA0eLmwO9_tpjnMu6Q/exec",
+        url1: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSsxNHL-vaqMMnVoya19qYkWWyHD6y9KXXbWkO7xWE9I665bdEpidMtHM7QhUs_iJSaIhOF2HSOEPTt/pubhtml",
+        url2: "https://script.google.com/macros/s/AKfycbxE687IM2lVBYOacvXH25mQCZT9rI9diHF3l540a9QhNGD5Kfkxi1iBcBvsPklmTd8/exec",
         paths: "",
         productList: [],
         cart_infor: {"list": []},
