@@ -1,7 +1,7 @@
 const appVue = new Vue({
     el: '#root',
     data: {
-        url1: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSsxNHL-vaqMMnVoya19qYkWWyHD6y9KXXbWkO7xWE9I665bdEpidMtHM7QhUs_iJSaIhOF2HSOEPTt/pubhtml",
+        url1: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQulQOzMImnGxa5CCwVVsbXiLdMGgbhN1IDT0hjSxubUEDHyObPDkEZL46hhURveBuEOp3-j9ewKwEW/pubhtml",
         url2: "https://script.google.com/macros/s/AKfycbxZcv77Ajdwmwcuv6QYmswoBRZcLdHasuW-uegMYIlXeuChSOpJvcc2U0xDVPyfURO5qg/exec",
         paths: "",
         productList: [],
