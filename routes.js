@@ -2,7 +2,7 @@ const appVue = new Vue({
     el: '#root',
     data: {
         url1: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSsxNHL-vaqMMnVoya19qYkWWyHD6y9KXXbWkO7xWE9I665bdEpidMtHM7QhUs_iJSaIhOF2HSOEPTt/pubhtml",
-        url2: "https://script.google.com/macros/s/AKfycbzHLdde5nEo9Xtjom2XK9WZ7ofXO5fQ3OImeIgxpsn3oeVigDuKDMXF3X0qvFOmEo6BqQ/exec",
+        url2: "https://script.google.com/macros/s/AKfycbxZcv77Ajdwmwcuv6QYmswoBRZcLdHasuW-uegMYIlXeuChSOpJvcc2U0xDVPyfURO5qg/exec",
         paths: "",
         productList: [],
         cart_infor: {"list": []},
